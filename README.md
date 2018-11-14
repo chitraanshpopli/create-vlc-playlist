@@ -9,7 +9,7 @@ Note that compared to what VLC media player makes on using it's 'save as playlis
 this creates a very bare-bone xml structure, the minimum that I found necessary for the file to work. 
 So the xspf file is ugly but it works.
 
-####Known problems:
+#### Known problems:
 1. Files with '%' or '#' in their names get added to the playlist but generate error when played.
 2. If a file's name starts with '#', the file selection is ruined. It adds all the files' (and subdirectories')
    to the playlist regardless to them being video or not.
