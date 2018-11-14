@@ -1,10 +1,8 @@
 import xml.etree.ElementTree as xml
 import os
-import filetype 
 
 ext_list = ('.mp4', '.mkv', '.avi', '.flv', '.mov', '.wmv', '.vob',
 '.mpg','.3gp', '.m4v')		#List of extensions to be checked.
-
 
 class Playlist:
 	"""Build xml playlist."""
@@ -75,7 +73,6 @@ def main():
 		playlist.add_track(path)
 	
 	playlist_xml = playlist.get_playlist()
-	#print(xml.tostring(playlist_xml))
 	with open('songs.xspf','w') as mf:
 		mf.write(xml.tostring(playlist_xml).decode('utf-8'))
 	
