@@ -1,9 +1,9 @@
 # create-vlc-playlist
 
 I have a folder in which I keep my video songs and save them as a VLC playlist. 
-This program eliminates the need to create a new playlist everytime I add/remove video from/to the folder.
-It automatically creates a VLC media player playlist (.xspf) containing all the videos in the working directory.
-The video containers can be added or removed from the ext_list variable.
+This program eliminates the need to create a new playlist everytime I add/remove video to/from the folder.
+It on launch, automatically creates a VLC media player playlist (.xspf) containing all the videos in the working directory.
+The video containers can be added or removed from the ext_list variable. Can be used for audio files also.
 
 Note that compared to what VLC media player makes on using it's 'save as playlist' option,
 this creates a very bare-bone xml structure, the minimum that I found necessary for the file to work. 
