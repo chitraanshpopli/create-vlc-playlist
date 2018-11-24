@@ -4,6 +4,8 @@ import os
 ext_list = ('.mp4', '.mkv', '.avi', '.flv', '.mov', '.wmv', '.vob',
 '.mpg','.3gp', '.m4v')		#List of extensions to be checked.
 
+check_subdirectories = True 
+
 class Playlist:
 	"""Build xml playlist."""
 	
@@ -57,12 +59,31 @@ class Videos:
 	
 	def get_videos(self):
 	#Returns list of video files in the directory.
-		all_files = os.listdir()
-		videos = self.remove_nonvideo_files(all_files)
-		return videos
+		if check_subdirectories == True:
+			pathlist = [os.getcwd()]	#List of all directories to be scanned.
+			for root, dirs, files in os.walk(os.getcwd()):
+				for name in dirs:
+						subdir_path = os.path.join(root, name)
+						if subdir_path.find('\.') != -1:	#Excludes hidden directoriess.
+							pass
+						else:
+							pathlist.append(subdir_path)
+							
+			videos = []
+			#Loops through files of root directory and every subdirectory.
+			for path in pathlist:
+				all_files = os.listdir(path)
+				for f in self.remove_nonvideo_files(all_files):
+					videos.append(f)
+			return videos
 
+		else:
+			all_files = os.listdir()
+			videos = self.remove_nonvideo_files(all_files)
+			return videos
 
 def main():
+	
 	playlist = Playlist()
 	videos = Videos()
 	
