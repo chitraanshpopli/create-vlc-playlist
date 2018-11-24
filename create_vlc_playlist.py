@@ -4,7 +4,7 @@ import os
 ext_list = ('.mp4', '.mkv', '.avi', '.flv', '.mov', '.wmv', '.vob',
 '.mpg','.3gp', '.m4v')		#List of extensions to be checked.
 
-check_subdirectories = True 
+check_subdirectories = True		#Set false to get files only from cwd.
 
 class Playlist:
 	"""Build xml playlist."""
