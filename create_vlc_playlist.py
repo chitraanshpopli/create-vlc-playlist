@@ -1,10 +1,10 @@
 import xml.etree.ElementTree as xml
 import os
 
-ext_list = ('.mp4', '.mkv', '.avi', '.flv', '.mov', '.wmv', '.vob',
-'.mpg','.3gp', '.m4v')		#List of extensions to be checked.
+ext_list = ['.mp4', '.mkv', '.avi', '.flv', '.mov', '.wmv', '.vob',
+'.mpg','.3gp', '.m4v']		#List of extensions to be checked.
 
-check_subdirectories = True		#Set false to get files only from cwd.
+check_subdirectories = False		#Set false to get files only from cwd.
 
 class Playlist:
 	"""Build xml playlist."""
@@ -44,17 +44,18 @@ class Videos:
 	def remove_nonvideo_files(self,file_list):
 	#Removes files whose extension is not mentioned in ext_list from list of files.
 		for index,file_name in enumerate(file_list[:]):
-			if file_name.endswith(ext_list):
+			#if file_name.endswith(tuple(ext_list)) or file_name.endswith(tuple(ext_list.upper())) :
+			if file_name.endswith(tuple(ext_list)) or file_name.endswith(tuple(ext.upper() for ext in ext_list)):
 				pass
 			else:
 				file_list.remove(file_name)
 		return file_list
 	
-	def add_paths(self, video_files):
+	def edit_paths(self, video_files):
 	#Add path and prefix to files as required in vlc playlist file. 
 		for index in range(len(video_files)):
 			video_files[index] =( 
-			'file:///' + os.path.join(os.getcwd(), video_files[index])).replace('\\','/')
+			'file:///' + os.path.join(video_files[index])).replace('\\','/')
 		return video_files
 	
 	def get_videos(self):
@@ -74,12 +75,16 @@ class Videos:
 			for path in pathlist:
 				all_files = os.listdir(path)
 				for f in self.remove_nonvideo_files(all_files):
-					videos.append(f)
+					location = path+ '\\' + f
+					videos.append(location)
 			return videos
-
+			
 		else:
+			videos = []
 			all_files = os.listdir()
-			videos = self.remove_nonvideo_files(all_files)
+			for f in self.remove_nonvideo_files(all_files):
+					location = os.getcwd() + '\\' + f
+					videos.append(location)
 			return videos
 
 def main():
@@ -88,7 +93,7 @@ def main():
 	videos = Videos()
 	
 	video_files = videos.get_videos()
-	video_paths = videos.add_paths(video_files)
+	video_paths = videos.edit_paths(video_files)
 	
 	for path in video_paths:
 		playlist.add_track(path)
